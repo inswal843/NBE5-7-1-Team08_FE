@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  background-color: #dddddd48;
+}
+
+.card {
+  background-color: white; /* 카드 안은 흰색 */
+  margin: auto;
+  max-width: 950px;
+  width: 90%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  border: none;
+  overflow: hidden; /* 모서리 둥글게 유지 */
+}
+
+.summary {
+  background-color: #ddd; /* summary 영역만 다시 회색 */
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 4vh;
+  color: rgb(65, 65, 65);
+}
+
+
+@media (max-width: 767px) {
+  .summary {
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+  }
+}
+
+.summary h6 {
+  word-break: keep-all;
+  white-space: normal;
+  margin-bottom: 10px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  border-top: 1px solid #aaa;
+  padding-top: 1rem;
+}
+
+button.btn-dark {
+  padding: 10px 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.product-list-container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.products {
+  width: 100%;
+}
+
+.products .list-group-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 1.25rem;
+  min-height: 100px;
+  box-sizing: border-box;
+}
+
+.products .price,
+.products .action {
+  line-height: 38px;
+}
