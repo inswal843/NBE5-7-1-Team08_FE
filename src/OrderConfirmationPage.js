@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 function OrderConfirmationPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { message, orderData, products } = location.state || {};
+  const { message, orderData, products, type } = location.state || {};
 
-  // 상품 ID를 상품명으로 변환하는 함수
+  // 상품 ID로 이름 찾기
   const getProductNameById = (productId) => {
     const product = products.find(p => p.id === productId);
     return product ? product.name : '상품 이름 없음';
@@ -14,21 +14,19 @@ function OrderConfirmationPage() {
 
   const getProductImageById = (productId) => {
     const product = products.find(p => p.id === productId);
-    if (product) {
-      return `http://localhost:8080${product.imagePath}`;  // 이미지 경로를 반환
-    }
-    return '/default-image.png';  // 기본 이미지 경로
+    return product ? `http://localhost:8080${product.imagePath}` : '/default-image.png';
   };
 
-  // 주문한 상품들의 총합을 계산하는 함수
   const calculateTotal = () => {
     return orderData?.orderProducts.reduce((total, item) => {
       const product = products.find(p => p.id === item.productId);
-      if (product) {
-        return total + product.price * item.quantity;
-      }
-      return total;
-    }, 0).toLocaleString(); // 가격 총합
+      return product ? total + product.price * item.quantity : total;
+    }, 0).toLocaleString();
+  };
+
+  const getTitle = () => {
+    if (type === 'edit') return '주문 수정 완료';
+    return '주문 완료';
   };
 
   return (
@@ -45,7 +43,6 @@ function OrderConfirmationPage() {
             position: 'relative',
           }}
         >
-          {/* 메인으로 가는 버튼 */}
           <button
             onClick={() => navigate('/')}
             style={{
@@ -62,7 +59,7 @@ function OrderConfirmationPage() {
             메인으로 가기
           </button>
 
-          <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>주문 내역 확인</h1>
+          <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>{getTitle()}</h1>
           <p style={{ textAlign: 'center', marginBottom: '20px' }}>{message}</p>
 
           <h3>주문 정보</h3>
@@ -85,8 +82,6 @@ function OrderConfirmationPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  width: '100%',
-                  boxSizing: 'border-box',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -107,7 +102,6 @@ function OrderConfirmationPage() {
             ))}
           </div>
 
-          {/* 총 합계 표시 (카드 안쪽 하단에 배치) */}
           <div
             style={{
               backgroundColor: '#fff',
@@ -116,7 +110,7 @@ function OrderConfirmationPage() {
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
               fontSize: '1.2rem',
               fontWeight: 'bold',
-              marginTop: '20px', // 주문한 상품 목록과 겹치지 않게 여백을 줌
+              marginTop: '20px',
               textAlign: 'right',
             }}
           >
