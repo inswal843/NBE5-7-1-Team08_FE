@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import App from './App'; // 메인 페이지
 import OrderPage from './orderPage';
+import OrderConfirmationPage from './OrderConfirmationPage'; // 임포트 추가
 // index.js
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,6 +16,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/order" element={<OrderPage />} />
+      <Route path="/order/confirm" element={<OrderConfirmationPage />} />
       {/* <Route path="/admin" element={<AdminPage />} /> */}
     </Routes>
   </Router>

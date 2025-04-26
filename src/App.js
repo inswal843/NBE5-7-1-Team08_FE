@@ -1,15 +1,27 @@
-// ✅ App.js - 메인 페이지로 사용 (상품 예시 3개 + 상단 버튼)
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const products = [
-  { id: 1, name: 'Columbia Nariñó', price: 5000, image: 'https://i.imgur.com/HKOFQYa.jpeg' },
-  { id: 2, name: 'Brazil Serra Do Caparaó', price: 5000, image: 'https://i.imgur.com/HKOFQYa.jpeg' },
-  { id: 3, name: 'Kenya AA', price: 6000, image: 'https://i.imgur.com/HKOFQYa.jpeg' },
-];
-
 function App() {
+  const [products, setProducts] = useState([]);  // 제품 데이터 상태
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // DB에서 제품 목록을 가져오는 API 호출
+    fetch('http://localhost:8080/api/products/list')  // API URL
+      .then(res => {
+        if (!res.ok) throw new Error('서버 응답 오류');
+        return res.json();
+      })
+      .then(data => setProducts(data.slice(0, 3)))  // 첫 3개 제품만 상태에 저장
+      .catch(err => {
+        console.error('상품 목록 불러오기 실패:', err);
+        alert('상품을 불러오지 못했습니다.');
+      });
+  }, []);
+
+  const handleOrderClick = () => {
+    navigate('/order');  // 주문하기 버튼 클릭 시 orderPage.js로 이동
+  };
 
   return (
     <div style={{ backgroundColor: '#ddd', minHeight: '100vh', padding: '2rem' }}>
@@ -26,15 +38,38 @@ function App() {
           {products.map(product => (
             <div key={product.id} className="col-md-4">
               <div className="card h-100">
-                <img src={product.image} alt={product.name} className="card-img-top" style={{ height: '200px', objectFit: 'contain' }} />
+                <img
+                  src={`http://localhost:8080${product.imagePath}`}  // 이미지 경로
+                  alt={product.name}
+                  className="card-img-top"
+                  style={{
+                    height: '250px',  // 이미지 높이 조정
+                    objectFit: 'contain',  // 이미지 크기 맞추기
+                    borderRadius: '30px',  // 이미지 모서리 둥글게
+                    margin: '20px',  // 카드에 맞지 않게 여백 추가
+                    display: 'block',  // 이미지 가운데 정렬
+                    marginLeft: 'auto',
+                    marginRight: 'auto',  // 가운데 정렬
+                  }}
+                />
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">가격: {product.price.toLocaleString()}원</p>
-                  <button className="btn btn-outline-dark w-100">자세히 보기</button>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* 주문하기 버튼 추가 */}
+        <div className="d-flex justify-content-center mt-4">
+          <button 
+            className="btn btn-dark"
+            style={{ width: '200px' }} // 버튼 크기를 카드 크기에 맞추기
+            onClick={handleOrderClick}  // 버튼 클릭 시 주문 페이지로 이동
+          >
+            주문하기
+          </button>
         </div>
       </div>
     </div>
