@@ -6,6 +6,9 @@ import App from './App'; // 메인 페이지
 import OrderPage from './orderPage';
 // index.js
 import 'bootstrap/dist/css/bootstrap.min.css';
+import InquiryList from "./InquiryList";
+import InquiryDetail from "./InquiryDetail";
+import InquiryCreate from "./InquiryCreate";
 
 // import AdminPage from './AdminPage';
 
@@ -15,7 +18,9 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/order" element={<OrderPage />} />
-      {/* <Route path="/admin" element={<AdminPage />} /> */}
+      <Route path="/inq/page" element={<InquiryList />} />
+      <Route path="/inq/:inquiryId" element={<InquiryDetail />} />
+      <Route path="/inq/create" element={<InquiryCreate />} />
     </Routes>
   </Router>
 );
