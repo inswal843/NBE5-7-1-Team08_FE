@@ -17,16 +17,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Router>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/order" element={<OrderPage />} />
-        <Route path="/order/confirm" element={<OrderConfirmationPage />} />
-        <Route path="/orders" element={<OrderHistoryPage />} />
-        <Route path="/order/update/:id" element={<OrderEditPage />} />
-        <Route path="/inq/page" element={<InquiryList/>}/>
-        <Route path="/inq/:inquiryId" element={<InquiryDetail/>}/>
-        <Route path="/inq/create" element={<InquiryCreate/>}/>
-      </Routes>
-    </Router>
+  <Router>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/order" element={<OrderPage />} />
+      <Route path="/order/confirm" element={<OrderConfirmationPage />} />
+      <Route path="/orders" element={<OrderHistoryPage />} />
+      <Route path="/order/update/:id" element={<OrderEditPage />} /> 
+      <Route path="/inq/page" element={<InquiryList/>}/>
+      <Route path="/inq/:inquiryId" element={<InquiryDetail/>}/>
+      <Route path="/inq/create" element={<InquiryCreate/>}/>
+    </Routes>
+  </Router>
 );
