@@ -100,7 +100,7 @@ function OrderPage() {
     <div style={{ backgroundColor: '#ddd', minHeight: '100vh', padding: '2rem' }}>
       <div className="container">
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <h1 className="text-center m-0 flex-grow-1">Grids & Circle</h1>
+          <h1 className="text-center m-0 flex-grow-1">주문결제</h1>
           <button className="btn btn-outline-secondary ms-3" onClick={() => navigate(-1)}>← 뒤로가기</button>
         </div>
 
