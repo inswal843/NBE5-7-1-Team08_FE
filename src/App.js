@@ -29,10 +29,9 @@ function App() {
         <div className="d-flex justify-content-between align-items-center mb-4" style={{ position: 'relative' }}>
           <h1 className="m-0 mx-auto text-center" style={{ flexGrow: 1 }}>Grids & Circle</h1>
           <div className="d-flex align-items-center" style={{ position: 'absolute', right: 0 }}>
-            <button className="btn btn-outline-secondary me-2" onClick={() => navigate('/admin')}>문의 하기</button>
+            <button className="btn btn-outline-secondary me-2" onClick={() => navigate('/inq/page')}>문의 게시판</button>
             <button className="btn btn-dark" onClick={() => navigate('/orders')}>주문 내역</button>
           </div>
-        </div>
 
         <div className="row g-3">
           {products.map(product => (
@@ -56,9 +55,19 @@ function App() {
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">가격: {product.price.toLocaleString()}원</p>
                 </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* 주문하기 버튼 추가 */}
+          <div className="d-flex justify-content-center mt-4">
+            <button
+                className="btn btn-dark"
+                style={{width: '200px'}} // 버튼 크기를 카드 크기에 맞추기
+                onClick={handleOrderClick}  // 버튼 클릭 시 주문 페이지로 이동
+            >
+              주문하기
+            </button>
+          </div>
         </div>
 
         {/* 주문하기 버튼 추가 */}
@@ -72,7 +81,6 @@ function App() {
           </button>
         </div>
       </div>
-    </div>
   );
 }
 
