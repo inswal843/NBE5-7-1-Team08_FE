@@ -27,7 +27,7 @@ function App() {
     <div style={{ backgroundColor: '#ddd', minHeight: '100vh', padding: '2rem' }}>
       <div className="container">
         <div className="d-flex justify-content-between align-items-center mb-4" style={{ position: 'relative' }}>
-          <h1 className="m-0 mx-auto text-center" style={{ flexGrow: 1 }}>8 Bit with Coffee</h1>
+          <h1 className="m-0 mx-auto text-center" style={{ flexGrow: 1 }}>작은 로컬 카페 1</h1>
           <div className="d-flex align-items-center" style={{ position: 'absolute', right: 0 }}>
             <button className="btn btn-outline-secondary me-2" onClick={() => navigate('/inq/page')}>문의 게시판</button>
             <button className="btn btn-dark" onClick={() => navigate('/orders')}>주문 내역</button>
