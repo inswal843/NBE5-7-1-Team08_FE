@@ -40,9 +40,11 @@
 ![image](https://github.com/user-attachments/assets/32ad72c4-7cfe-4d16-8586-729213a0e202)
 #### 주문 상세 확인 페이지
 ![image](https://github.com/user-attachments/assets/aa991332-e03d-408d-b36a-4e6af7c8fcc4)
-
+#### 주문 수정 페이지
 ![image](https://github.com/user-attachments/assets/0a84838c-1d3b-433a-8da1-04ed935588a6)
+#### 주문 삭제 페이지
 ![image](https://github.com/user-attachments/assets/1d4bd790-3d67-4d58-a688-1568d8da0ecc)
+#### 문의 목록 페이지
 ![image](https://github.com/user-attachments/assets/00aad581-ba21-42d1-b1ba-7e66782d2729)
 #### 문의 상세 확인 페이지
 ![image](https://github.com/user-attachments/assets/0c8d93b2-898b-4116-bafd-56e8b971f482)
