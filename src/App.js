@@ -12,7 +12,7 @@ function App() {
         if (!res.ok) throw new Error('서버 응답 오류');
         return res.json();
       })
-      .then(data => setProducts(data.slice(0, 3)))  // 첫 3개 제품만 상태에 저장
+      .then(data => setProducts(data.slice(0, 6)))  // 첫 3개 제품만 상태에 저장
       .catch(err => {
         console.error('상품 목록 불러오기 실패:', err);
         alert('상품을 불러오지 못했습니다.');
@@ -27,11 +27,12 @@ function App() {
     <div style={{ backgroundColor: '#ddd', minHeight: '100vh', padding: '2rem' }}>
       <div className="container">
         <div className="d-flex justify-content-between align-items-center mb-4" style={{ position: 'relative' }}>
-          <h1 className="m-0 mx-auto text-center" style={{ flexGrow: 1 }}>Grids & Circle</h1>
+          <h1 className="m-0 mx-auto text-center" style={{ flexGrow: 1 }}>8 Bit with Coffee</h1>
           <div className="d-flex align-items-center" style={{ position: 'absolute', right: 0 }}>
             <button className="btn btn-outline-secondary me-2" onClick={() => navigate('/inq/page')}>문의 게시판</button>
             <button className="btn btn-dark" onClick={() => navigate('/orders')}>주문 내역</button>
           </div>
+        </div>
 
         <div className="row g-3">
           {products.map(product => (
@@ -55,19 +56,9 @@ function App() {
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">가격: {product.price.toLocaleString()}원</p>
                 </div>
-            ))}
-          </div>
-
-          {/* 주문하기 버튼 추가 */}
-          <div className="d-flex justify-content-center mt-4">
-            <button
-                className="btn btn-dark"
-                style={{width: '200px'}} // 버튼 크기를 카드 크기에 맞추기
-                onClick={handleOrderClick}  // 버튼 클릭 시 주문 페이지로 이동
-            >
-              주문하기
-            </button>
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* 주문하기 버튼 추가 */}
@@ -81,6 +72,7 @@ function App() {
           </button>
         </div>
       </div>
+    </div>
   );
 }
 
