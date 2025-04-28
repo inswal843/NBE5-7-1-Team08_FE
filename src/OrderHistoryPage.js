@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CustomAlert from './CustomAlert';
 
 function OrderHistoryPage() {
   const [emailInput, setEmailInput] = useState('');
   const [email, setEmail] = useState(null);
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
+  const [alertMessage, setAlertMessage] = useState(null);  // alert 메시지 상태 관리
   const navigate = useNavigate();
 
   const fetchProducts = async () => {
@@ -15,7 +17,7 @@ function OrderHistoryPage() {
       const data = await res.json();
       setProducts(data);
     } catch {
-      alert('상품 리스트 조회 실패');
+      setAlertMessage('상품 리스트 조회 실패');
     }
   };
 
@@ -30,12 +32,12 @@ function OrderHistoryPage() {
         setEmail(targetEmail);
         setOrders(data.reverse());
       })
-      .catch(() => alert('주문 내역 조회 실패'));
+      .catch(() => setAlertMessage('해당하는 이메일의 주문 내역이 없습니다'));
   };
 
   const handleEmailSubmit = () => {
     if (!emailInput || !emailInput.includes('@')) {
-      alert('올바른 이메일을 입력해주세요');
+      setAlertMessage('올바른 이메일을 입력해주세요');
       return;
     }
     fetchOrders(emailInput);
@@ -57,10 +59,10 @@ function OrderHistoryPage() {
     })
       .then((res) => {
         if (!res.ok) throw new Error();
-        alert('주문이 성공적으로 취소되었습니다.');
+        setAlertMessage('주문이 성공적으로 취소되었습니다.');
         window.location.reload();
       })
-      .catch(() => alert('주문 취소 실패'));
+      .catch(() => setAlertMessage('주문 취소 실패'));
   };
 
   const resetEmail = () => {
@@ -98,7 +100,9 @@ function OrderHistoryPage() {
   return (
     <div style={{ backgroundColor: '#ddd', minHeight: '100vh', padding: '2rem' }}>
       <div className="container">
-        
+        {/* CustomAlert 컴포넌트 사용 */}
+        {alertMessage && <CustomAlert message={alertMessage} onClose={() => setAlertMessage(null)} />}
+
         {/* 상단 타이틀 + 버튼 */}
         <div className="d-flex justify-content-between align-items-center mb-4 position-relative">
           <button
@@ -146,8 +150,10 @@ function OrderHistoryPage() {
         )}
 
         {/* 주문 내역이 없는 경우 */}
-        {orders.length === 0 && email && (
-          <p className="text-muted text-center">주문 내역이 없습니다.</p>
+        {orders.length === 0 && email && !alertMessage && (
+          <p className="text-muted text-center" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#555' }}>
+            주문 내역이 없습니다.
+          </p>
         )}
 
         {/* 주문 내역 리스트 */}
