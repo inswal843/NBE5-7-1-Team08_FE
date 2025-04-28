@@ -56,7 +56,7 @@ function OrderConfirmationPage() {
               border: 'none',
             }}
           >
-            메인으로 가기
+            홈으로
           </button>
 
           <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>{getTitle()}</h1>

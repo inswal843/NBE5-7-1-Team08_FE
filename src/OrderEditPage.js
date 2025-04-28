@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import CustomAlert from './CustomAlert';  // CustomAlert 컴포넌트 import
 
 function OrderEditPage() {
   const { id } = useParams();
@@ -9,10 +10,11 @@ function OrderEditPage() {
   const [order, setOrder] = useState(null);
   const [products, setProducts] = useState([]);
   const [saving, setSaving] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);  // alertMessage 상태 추가
 
   useEffect(() => {
     if (!email) {
-      alert('이메일 정보가 없습니다. 다시 조회해주세요.');
+      setAlertMessage('이메일 정보가 없습니다. 다시 조회해주세요.');
       navigate('/orders');
       return;
     }
@@ -24,7 +26,7 @@ function OrderEditPage() {
       })
       .then((data) => {
         if (data.status !== 'BEFORE_SHIPPING') {
-          alert('배송 중이거나 취소된 주문은 수정할 수 없습니다.');
+          setAlertMessage('배송 중이거나 취소된 주문은 수정할 수 없습니다.');
           navigate('/orders');
         } else {
           setOrder({
@@ -35,7 +37,7 @@ function OrderEditPage() {
       })
       .catch((err) => {
         console.error(err);
-        alert(err.message || '주문 조회 실패');
+        setAlertMessage(err.message || '주문 조회 실패');
         navigate('/orders');
       });
 
@@ -62,7 +64,7 @@ function OrderEditPage() {
         orderProducts: updatedProducts,
       };
     });
-  };  
+  };
 
   const handleSave = () => {
     if (saving) return;
@@ -92,6 +94,7 @@ function OrderEditPage() {
         return res.text();
       })
       .then(() => {
+        setAlertMessage('주문이 성공적으로 수정되었습니다.');
         navigate('/order/confirm', {
           state: {
             message: '주문이 성공적으로 수정되었습니다.',
@@ -103,7 +106,7 @@ function OrderEditPage() {
       })
       .catch((err) => {
         console.error(err);
-        alert(err.message || '주문 수정 중 오류가 발생했습니다.');
+        setAlertMessage(err.message || '주문 수정 중 오류가 발생했습니다.');
       })
       .finally(() => setSaving(false));
   };
@@ -119,6 +122,9 @@ function OrderEditPage() {
   return (
     <div style={{ backgroundColor: '#ddd', minHeight: '100vh', padding: '2rem' }}>
       <div className="container">
+        {/* CustomAlert 컴포넌트 사용 */}
+        {alertMessage && <CustomAlert message={alertMessage} onClose={() => setAlertMessage(null)} />}
+
         <h2>주문 수정</h2>
 
         <div className="mb-3">

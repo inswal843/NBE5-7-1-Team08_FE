@@ -1,6 +1,6 @@
-// ✅ OrderPage.js - 주문 및 결제 페이지 (DB에서 상품 불러옴)
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CustomAlert from './CustomAlert'; 
 import Summary from './Summary';
 
 function OrderPage() {
@@ -9,6 +9,7 @@ function OrderPage() {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [postcode, setPostcode] = useState('');
+  const [alertMessage, setAlertMessage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function OrderPage() {
       .then(data => setProducts(data))
       .catch(err => {
         console.error('상품 목록 불러오기 실패:', err);
-        alert('상품을 불러오지 못했습니다.');
+        setAlertMessage('상품을 불러오지 못했습니다.');
       });
   }, []);
 
@@ -73,23 +74,23 @@ function OrderPage() {
         return res.text(); // 주문 성공 메시지 받기
       })
       .then((message) => {
-        alert(message);
+        setAlertMessage('주문이 완료되었습니다.');
   
         // 👉 주문 정보와 메시지를 함께 주문 확인 페이지로 넘기기
         navigate('/order/confirm', {
           state: {
-            message,
+            message: '주문이 완료되었습니다.',
             orderData,
             products: products,
+            type: 'order',
           },
         });
       })
       .catch((err) => {
         console.error(err);
-        alert('결제 실패!');
+        setAlertMessage('결제 실패!');
       });
   };
-  
 
   const total = Object.keys(cart).reduce((acc, id) => {
     const product = products.find(p => p.id === parseInt(id));
@@ -99,6 +100,9 @@ function OrderPage() {
   return (
     <div style={{ backgroundColor: '#ddd', minHeight: '100vh', padding: '2rem' }}>
       <div className="container">
+        {/* CustomAlert 컴포넌트 사용 */}
+        {alertMessage && <CustomAlert message={alertMessage} onClose={() => setAlertMessage(null)} />}
+
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h1 className="text-center m-0 flex-grow-1">주문결제</h1>
           <button className="btn btn-outline-secondary ms-3" onClick={() => navigate(-1)}>← 뒤로가기</button>
