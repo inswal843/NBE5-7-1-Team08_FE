@@ -30,7 +30,7 @@ function Summary({ cart, products, total, email, address, postcode, setEmail, se
       )}
       <div className="total-row">
         <span><b>총금액</b></span>
-        <span>{total.toLocaleString()}원</span>
+        <span>{total.toLocaleString()} 원</span>
       </div>
       <input type="email" className="form-control my-2" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input type="text" className="form-control my-2" placeholder="주소" value={address} onChange={(e) => setAddress(e.target.value)} />
