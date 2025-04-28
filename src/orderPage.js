@@ -130,7 +130,7 @@ function OrderPage() {
     >
       <div style={{ marginRight: '16px' }}>
         <img
-          src={`http://localhost:8080${product.imagePath}`}
+          src={`http://localhost:8080/images/${product.imagePath}`}
           alt={product.name}
           style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' }}
         />

@@ -39,7 +39,7 @@ function App() {
             <div key={product.id} className="col-md-4">
               <div className="card h-100">
                 <img
-                  src={`http://localhost:8080${product.imagePath}`}  // 이미지 경로
+                  src={`http://localhost:8080/api/products/${product.id}/image`}  // 이미지 경로
                   alt={product.name}
                   className="card-img-top"
                   style={{
