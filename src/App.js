@@ -12,7 +12,7 @@ function App() {
         if (!res.ok) throw new Error('서버 응답 오류');
         return res.json();
       })
-      .then(data => setProducts(data.slice(0, 6)))  // 첫 3개 제품만 상태에 저장
+      .then(data => setProducts(data.slice(0, 6)))  // 첫 6개 제품만 상태에 저장
       .catch(err => {
         console.error('상품 목록 불러오기 실패:', err);
         alert('상품을 불러오지 못했습니다.');
